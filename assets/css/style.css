@@ -37,3 +37,8 @@ main {
     cursor: pointer;
 }
 
+#cityImage img {
+    max-width: 100%;
+}
+
+/* Add more styling for weather info and forecast if we need *
