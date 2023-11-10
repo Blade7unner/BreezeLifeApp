@@ -29,3 +29,11 @@ main {
     padding: 10px;
 }
 
+#searchButton {
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
