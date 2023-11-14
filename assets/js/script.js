@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded",() => {
     searchButton.addEventListener("click"), () => {
         const cityName = cityInput.value;
         // Make API request and update the HTML elements with the fetched data
-        // Openweather API and Teleport API here
+        // Openweather API and Teleport API here 
 
 
     };
