@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded",() => {
     const weatherInfo = document.getElementById("weatherInfo")
     const forecast = document.getElementById("forecast");
 
+
+
+    fetch('https://api.teleport.org/api/')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+  
     // Event listener for the search button
     searchButton.addEventListener("click"), () => {
         const cityName = cityInput.value;

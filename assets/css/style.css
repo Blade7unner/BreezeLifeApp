@@ -60,12 +60,16 @@ main {
     max-width: 100%;
 }
 
+
+/*  Add more styling for weather info and forecast if we need *
+
 #typeTheActivity {
     font-weight: 500;
     font-size: 45px;
 }
 
 /* Add more styling for weather info and forecast if we need *
+
 
 #cityInput {
 
