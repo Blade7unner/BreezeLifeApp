@@ -32,7 +32,11 @@ main {
     flex-wrap: wrap;
     display: flex;
     flex: 0 0 75%;
-    max-width: 75%;
+    /* max-width: 75%; */
+    padding: 30px 40px;
+    margin: 12%;
+    width: 90%;
+    max-width: 1000px;
 }
 
 #search {
@@ -40,20 +44,28 @@ main {
     margin-bottom: 20px;
 }
 
-#cityInput {
+#inputBox {
+    max-width: 500px;
     width: 80%;
     padding: 10px;
+}
+
+#activityInput {
+
 }
 
 #searchButton {
     background-color: #007acc;
     color: white;
-    border: none;
+    border-radius: 7px;
     padding: 10px 20px;
     cursor: pointer;
+    max-width: 300px;
     max-width: 75%;
     flex: 0 0 75%;
     display: flex;
+    margin: 16px 16px 16px 20px;
+    padding: 14px 34px;
 }
 
 #cityImage img {
