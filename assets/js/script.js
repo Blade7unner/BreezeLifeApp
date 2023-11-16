@@ -4,21 +4,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");
     const searchButton = document.getElementById("searchButton");
     const currentWeatherDiv = document.getElementById("currentWeather");
-    const forecastDiv = document.getElementById("forecast");
+    const cityInfoDiv = document.getElementById("cityInfo");
+    const searchHistoryDiv = document.getElementById("searchHistory");
 
     searchButton.addEventListener("click", () => {
-        const searchQuery = searchInput.value.trim();
-        if (!searchQuery) {
-            displayMessage("Please enter a city name or an activity.");
-            return;
-        }
-
-        if (isCityName(searchQuery)) {
-            fetchWeather(searchQuery);
-            fetchForecast(searchQuery);
-            fetchCityInfo(searchQuery); // Fetch city information from Teleport API
+        const cityName = searchInput.value.trim();
+        if (cityName) {
+            fetchWeather(cityName);
+            fetchCityInfo(cityName);
+            addCityToSearchHistory(cityName);
         } else {
-            // Placeholder: fetchActivities function needs to be implemented if you want to search for activities
+            displayMessage("Please enter a city name.");
+        }
+    });
+
+    searchHistoryDiv.addEventListener("click", (event) => {
+        if (event.target.className.includes('search-history-item')) {
+            const cityName = event.target.textContent;
+            fetchWeather(cityName);
+            fetchCityInfo(cityName);
         }
     });
 
@@ -36,16 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.error("Error fetching current weather:", error));
     }
 
-    function fetchForecast(cityName) {
-        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${openWeatherApiKey}&units=imperial`;
-        fetch(forecastUrl)
-            .then(response => response.json())
-            .then(data => {
-                displayForecast(data);
-            })
-            .catch(error => console.error("Error fetching forecast:", error));
-    }
-
     function displayCurrentWeather(data) {
         currentWeatherDiv.innerHTML = `
             <p>City: ${data.name}</p>
@@ -56,50 +50,35 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     }
 
-    function displayForecast(data) {
-        forecastDiv.innerHTML = ''; // Clear existing forecast data
-        let forecasts = data.list;
-        let dailyForecasts = {};
-
-        forecasts.forEach(forecast => {
-            let date = new Date(forecast.dt * 1000).toLocaleDateString();
-            if (!dailyForecasts[date]) {
-                dailyForecasts[date] = [];
-            }
-            dailyForecasts[date].push(forecast);
-        });
-
-        Object.keys(dailyForecasts).forEach(date => {
-            let dayForecasts = dailyForecasts[date];
-            let avgTemp = dayForecasts.reduce((sum, forecast) => sum + forecast.main.temp, 0) / dayForecasts.length;
-
-            let forecastElement = document.createElement('div');
-            forecastElement.innerHTML = `<p>${date}: ${avgTemp.toFixed(2)} °F</p>`;
-            forecastDiv.appendChild(forecastElement);
-        });
-    }
-
     function fetchCityInfo(cityName) {
         const teleportApiUrl = `https://api.teleport.org/api/urban_areas/slug:${cityName.toLowerCase().replace(/ /g, '-')}/scores/`;
         fetch(teleportApiUrl)
             .then(response => response.json())
             .then(data => {
-                // Assuming you have an element with id 'cityInfo' to display the city's information
-                const cityInfoDiv = document.getElementById('cityInfo'); // Make sure to add this element to your HTML
-                // The rest of your code to process and display city information goes here
-                console.log(data); // For debugging
+                displayCityInfo(data, cityName);
             })
-            .catch(error => console.error("Error fetching city info:", error));
+            .catch(error => {
+                console.error("Error fetching city info:", error);
+                displayMessage("City information not available.");
+            });
     }
 
-    function isCityName(query) {
-        // Here you would implement your logic to determine if the query is a city name
-        // For the placeholder, we assume all inputs are city names
-        return true;
+    function displayCityInfo(data, cityName) {
+        cityInfoDiv.innerHTML = `<h3>Quality of Life in ${cityName}</h3>`;
+        // Add more details from the data as required
     }
 
-    // Add other functions here if needed, like fetchActivities, etc.
+    function addCityToSearchHistory(cityName) {
+        const cityElem = document.createElement("div");
+        cityElem.textContent = cityName;
+        cityElem.className = "search-history-item";
+        searchHistoryDiv.appendChild(cityElem);
+    }
 });
+
+
+
+
 
  
 
