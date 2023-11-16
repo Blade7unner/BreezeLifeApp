@@ -1,16 +1,16 @@
-const openWeatherApiKey = 'O4b9003adf8523264e0d88c73fd217e82';
-const teleportApiKey = 'TELEPORT_API_KEY';
+const openWeatherApiKey = 'c82895bdc50b848e2df6533322b114cb'; // Updated with your API key
+const teleportApiKey = 'TELEPORT_API_KEY'; // Replace with your valid API key if needed
 
 document.addEventListener("DOMContentLoaded", () => {
-    const cityInput = document.getElementById("activityInput"); // Adjusted to match HTML
+    const cityInput = document.getElementById("activityInput"); // Assuming this is the city input
     const searchButton = document.getElementById("searchButton");
-    const weatherInfo = document.getElementById("weather"); // Adjusted to match HTML
-    const activityInfo = document.getElementById("activity"); // Display activity here
+    const weatherInfo = document.getElementById("weather"); // Display weather information here
+    const activityInfo = document.getElementById("activity"); // Assuming you want to display activity info here
 
     searchButton.addEventListener("click", () => {
         const cityName = cityInput.value.trim();
         if (!cityName) {
-            alert("Please enter a city name."); // notification to input city name
+            alert("Please enter a city name."); // Replace with a more sophisticated notification method in actual implementation
             return;
         }
 
@@ -21,7 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function fetchWeather(cityName) {
         const openWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${openWeatherApiKey}`;
         fetch(openWeatherUrl)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+                return response.json();
+            })
             .then(weatherData => {
                 if (!weatherData || !weatherData.main || !weatherData.main.temp) {
                     throw new Error("Invalid weather data format");
@@ -31,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Additional weather info updates...
             })
             .catch(error => {
-                weatherInfo.textContent = "An error occurred while fetching weather data. Please try again.";
+                weatherInfo.textContent = `Error: ${error.message}`;
                 console.error(error);
             });
     }
@@ -40,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return (kelvin - 273.15) * 9/5 + 32;
     }
 });
+
 
 
     
