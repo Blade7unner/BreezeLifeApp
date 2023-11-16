@@ -1,12 +1,34 @@
 const openWeatherApiKey = 'OPENWEATHER_API_KEY';
 const teleportApiKey = 'TELEPORT_API_KEY';
 
-document.addEventListener("DOMContentLoaded",() => {
+document.addEventListener("DOMContentLoaded", () => {
     const cityInput = document.getElementById("cityInput");
     const searchButton = document.getElementById("searchButton");
     const weatherImage = document.getElementById("weatherImage");
-    const weatherInfo = document.getElementById("weatherInfo")
+    const weatherInfo = document.getElementById("weatherInfo");
     const forecast = document.getElementById("forecast");
+
+    searchButton.addEventListener("click", () => {
+        const cityName = cityInput.value.trim();
+        if (!cityName) {
+            alert("Please enter a city name."); // Replace with a more sophisticated notification method in actual implementation
+            return;
+        }
+
+        weatherInfo.textContent = "Loading weather data...";
+        fetchWeather(cityName);
+        fetchCityImage(cityName);
+    });
+
+    
+
+
+
+
+
+
+
+
 
 
     // Event listener for the search button
