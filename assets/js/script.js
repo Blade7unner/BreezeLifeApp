@@ -1,4 +1,4 @@
-const openWeatherApiKey = 'c82895bdc50b848e2df6533322b114cb'; // Replace with your valid API key
+const openWeatherApiKey = 'c82895bdc50b848e2df6533322b114cb'; // API key
 
 document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");
