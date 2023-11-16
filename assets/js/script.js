@@ -36,6 +36,7 @@ searchButton.addEventListener("click", () => {
           // Update forecast and cityImage elements
       })
       .catch(error => console.error(error));
+      
 });
 
 });
