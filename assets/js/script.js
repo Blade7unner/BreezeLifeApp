@@ -48,8 +48,18 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(teleportUrl)
             .then(response => response.json())
             .then(teleportData => {
-                // Process and display teleportData
-                // Update forecast and cityImage elements
+                // Check if the city was found and data is available
+                if (teleportData && teleportData._embedded && teleportData._embedded['city:search-results'] && teleportData._embedded['city:search-results'].length > 0) {
+                    const cityData = teleportData._embedded['city:search-results'][0];
+                    const cityName = cityData.matching_full_name;
+                    const cityPopulation = cityData._links['city:item'].population;
+                    
+                    // Assuming you have an element with id 'cityInfo' to display the city's information
+                    const cityInfo = document.getElementById('cityInfo');
+                    cityInfo.textContent = `City: ${cityName}, Population: ${cityPopulation}`;
+                } else {
+                    throw new Error("City not found or data not available");
+                }
             })
             .catch(error => console.error(error));
     }
