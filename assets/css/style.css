@@ -1,67 +1,117 @@
-/* CSS styling here */
+/* Custom CSS Styles */
+
+/* General Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: rgb(255, 255, 255);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #E3F2FD; /* Light blue background */
+    color: #333;
+    line-height: 1.6;
     margin: 0;
     padding: 0;
 }
 
-header {
-    background-color: #007acc;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
-
-main {
-    max-width: 800px;
+/* Centering Content */
+.grid-container {
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
 }
 
-.frontPage {
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: rgb(200, 195, 241);
-    align-content: center;
+/* Flex Container for Sections */
+.flex-container {
+    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    display: flex;
-    flex: 0 0 75%;
-    padding: 30px 40px;
-    margin: 12%;
-    width: 90%;
-    max-width: 1000px;
+    gap: 20px;
+    justify-content: center;
 }
 
-#search {
-    text-align: center;
-    margin-bottom: 20px;
+.flex-item {
+    flex: 1;
+    min-width: 300px; /* Adjust minimum width as needed */
 }
 
-#inputBox {
-    max-width: 500px;
-    width: 80%;
+/* Weather and Forecast Section */
+#currentWeather, #forecast {
+    padding: 20px;
+    background-color: #FFF3E0; /* Light orange for a warm feel */
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+#currentWeather {
+    border-left: 5px solid #FFB74D; /* Orange border for current weather */
+}
+
+#forecast div {
+    background-color: #E0F7FA; /* Light cyan for forecast */
     padding: 10px;
+    border-radius: 5px;
+    border-left: 5px solid #4DD0E1; /* Cyan border for forecast items */
+    margin-bottom: 10px;
 }
 
-#searchButton {
-    background-color: #007acc;
-    color: white;
-    border-radius: 7px;
-    padding: 14px 34px;
-    cursor: pointer;
-    max-width: 300px;
-    flex: 0 0 75%;
+/* Search History */
+#searchHistory {
+    padding: 15px;
+    background-color: #E8F5E9; /* Light green background for history */
+    border-radius: 10px;
+    border-left: 5px solid #66BB6A; /* Green border for history */
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+#searchHistory p {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #C8E6C9; /* Slightly darker green for items */
+    border-radius: 5px;
+}
+
+/* Input and Button Styling */
+.input-group {
     display: flex;
-    margin: 16px 16px 16px 20px;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
 }
 
-#cityImage img {
-    max-width: 100%;
+.input-group-field {
+    flex-grow: 1;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
 }
 
-#typeTheActivity {
-    font-weight: 500;
-    font-size: 45px;
+.button {
+    background-color: #29B6F6; /* Bright blue for button */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
+
+.button:hover {
+    background-color: #0288D1; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .flex-container {
+        flex-direction: column;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .input-group-field,
+    .button {
+        width: 100%;
+    }
+}
+
+
+
