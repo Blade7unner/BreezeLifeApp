@@ -1,11 +1,9 @@
-
 /* CSS styling here */
 body {
     font-family: Arial, sans-serif;
     background-color: rgb(19, 75, 83);
     margin: 0;
     padding: 0;
-    
 }
 
 header {
@@ -19,20 +17,17 @@ main {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    
 }
 
 .frontPage {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* THE COLORS RIGHT NOW ARE JUST PLACEHOLDERS AND WILL BE CHANGED LATER */
     background-color: rgb(200, 195, 241);
     align-content: center;
     flex-wrap: wrap;
     display: flex;
     flex: 0 0 75%;
-    /* max-width: 75%; */
     padding: 30px 40px;
     margin: 12%;
     width: 90%;
@@ -50,56 +45,23 @@ main {
     padding: 10px;
 }
 
-#activityInput {
-
-}
-
 #searchButton {
     background-color: #007acc;
     color: white;
     border-radius: 7px;
-    padding: 10px 20px;
+    padding: 14px 34px;
     cursor: pointer;
     max-width: 300px;
-    max-width: 75%;
     flex: 0 0 75%;
     display: flex;
     margin: 16px 16px 16px 20px;
-    padding: 14px 34px;
 }
 
 #cityImage img {
     max-width: 100%;
 }
 
-
-/*  Add more styling for weather info and forecast if we need *
-
 #typeTheActivity {
     font-weight: 500;
     font-size: 45px;
 }
-
-/* Add more styling for weather info and forecast if we need *
-
-
-#cityInput {
-
-}
-
-#searchButton {
-
-}
-
-#weatherImage {
-
-}
-
-#weatherInfo {
-
-}
-
-#forecast {
-
-}
-
