@@ -74,6 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
         cityElem.className = "search-history-item";
         searchHistoryDiv.appendChild(cityElem);
     }
+
+    
 });
 
 

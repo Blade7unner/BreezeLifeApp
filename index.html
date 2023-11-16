@@ -16,10 +16,18 @@
     </header>
 
     <div class="grid-container">
+
         <div class="input-group">
             <input id="searchInput" class="input-group-field" type="text" placeholder="Enter City...">
             <button id="searchButton" class="button">Search</button>
         </div>
+
+        <div id="teleportWidget">
+            <a class="teleport-widget-link" href="https://teleport.org/cities/miami/">Climate - Miami</a>
+            <script async class="teleport-widget-script" data-url="https://teleport.org/cities/miami/widget/weather/?currency=USD" data-max-width="770" data-height="544" src="https://teleport.org/assets/firefly/widget-snippet.min.js"></script>
+        </div>
+
+     
 
         <div id="currentWeather" class="weather-section">
             <!-- Current Weather Details Here -->
