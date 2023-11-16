@@ -79,3 +79,4 @@ document.addEventListener("DOMContentLoaded", () => {
         searchHistoryDiv.innerHTML += `<p>${cityName}</p>`;
     }
 });
+
