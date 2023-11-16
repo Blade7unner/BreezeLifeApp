@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchButton = document.getElementById("searchButton");
     const currentWeatherDiv = document.getElementById("currentWeather");
     const forecastDiv = document.getElementById("forecast");
-    const searchHistoryDiv = document.getElementById("searchHistory");
-    const activitySuggestionsDiv = document.getElementById("activitySuggestions");
 
     searchButton.addEventListener("click", () => {
         const searchQuery = searchInput.value.trim();
@@ -18,11 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isCityName(searchQuery)) {
             fetchWeather(searchQuery);
             fetchForecast(searchQuery);
+            fetchCityInfo(searchQuery); // Fetch city information from Teleport API
         } else {
-            fetchActivities(searchQuery);
+            // Placeholder: fetchActivities function needs to be implemented if you want to search for activities
         }
-        
-        updateSearchHistory(searchQuery);
     });
 
     function displayMessage(message) {
@@ -52,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function displayCurrentWeather(data) {
         currentWeatherDiv.innerHTML = `
             <p>City: ${data.name}</p>
-            <p>Date: ${new Date().toLocaleDateString()}</p>
+            <p>Date: ${new Date(data.dt * 1000).toLocaleDateString()}</p>
             <p>Temperature: ${data.main.temp} °F</p>
             <p>Humidity: ${data.main.humidity}%</p>
             <p>Wind Speed: ${data.wind.speed} mph</p>
@@ -60,18 +57,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function displayForecast(data) {
+        forecastDiv.innerHTML = ''; // Clear existing forecast data
         let forecasts = data.list;
         let dailyForecasts = {};
 
         forecasts.forEach(forecast => {
-            let date = new Date(forecast.dt_txt).toLocaleDateString();
+            let date = new Date(forecast.dt * 1000).toLocaleDateString();
             if (!dailyForecasts[date]) {
                 dailyForecasts[date] = [];
             }
             dailyForecasts[date].push(forecast);
         });
 
-        forecastDiv.innerHTML = '';
         Object.keys(dailyForecasts).forEach(date => {
             let dayForecasts = dailyForecasts[date];
             let avgTemp = dayForecasts.reduce((sum, forecast) => sum + forecast.main.temp, 0) / dayForecasts.length;
@@ -82,21 +79,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function fetchActivities(activity) {
-        // Placeholder for fetching activities based on the query
-        // Implementation depends on the activity-related API or data source you have
-        activitySuggestionsDiv.innerHTML = 'Activity data goes here'; // Example placeholder content
-    }
-
-    function updateSearchHistory(query) {
-        searchHistoryDiv.innerHTML += `<p>${query}</p>`;
+    function fetchCityInfo(cityName) {
+        const teleportApiUrl = `https://api.teleport.org/api/urban_areas/slug:${cityName.toLowerCase().replace(/ /g, '-')}/scores/`;
+        fetch(teleportApiUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Assuming you have an element with id 'cityInfo' to display the city's information
+                const cityInfoDiv = document.getElementById('cityInfo'); // Make sure to add this element to your HTML
+                // The rest of your code to process and display city information goes here
+                console.log(data); // For debugging
+            })
+            .catch(error => console.error("Error fetching city info:", error));
     }
 
     function isCityName(query) {
-        // Placeholder logic to determine if the query is a city name
-        // Implement this based on your app's logic or data
-        return true; // Assuming all inputs are city names for now
+        // Here you would implement your logic to determine if the query is a city name
+        // For the placeholder, we assume all inputs are city names
+        return true;
     }
+
+    // Add other functions here if needed, like fetchActivities, etc.
 });
+
+ 
 
 
