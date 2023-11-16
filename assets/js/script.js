@@ -20,7 +20,30 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchCityImage(cityName);
     });
 
+    function fetchWeather(cityName) {
+        const openWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${openWeatherApiKey}`;
+        fetch(openWeatherUrl)
+            .then(response => response.json())
+            .then(weatherData => {
+                if (!weatherData || !weatherData.main || !weatherData.main.temp) {
+                    throw new Error("Invalid weather data format");
+                }
+                const temperatureCelsius = kelvinToCelsius(weatherData.main.temp);
+                weatherInfo.textContent = `Temperature: ${temperatureCelsius.toFixed(2)} °C`;
+                // Additional weather info updates...
+            })
+            .catch(error => {
+                weatherInfo.textContent = "An error occurred while fetching weather data. Please try again.";
+                console.error(error);
+            });
+    }
+
     
+
+
+
+
+
 
 
 
