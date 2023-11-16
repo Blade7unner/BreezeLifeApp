@@ -2,11 +2,10 @@ const openWeatherApiKey = 'O4b9003adf8523264e0d88c73fd217e82';
 const teleportApiKey = 'TELEPORT_API_KEY';
 
 document.addEventListener("DOMContentLoaded", () => {
-    const cityInput = document.getElementById("cityInput");
+    const cityInput = document.getElementById("activityInput"); // Adjusted to match HTML
     const searchButton = document.getElementById("searchButton");
-    const weatherImage = document.getElementById("weatherImage");
-    const weatherInfo = document.getElementById("weatherInfo");
-    const forecast = document.getElementById("forecast");
+    const weatherInfo = document.getElementById("weather"); // Adjusted to match HTML
+    const activityInfo = document.getElementById("activity"); // Assuming you want to display activity here
 
     searchButton.addEventListener("click", () => {
         const cityName = cityInput.value.trim();
@@ -17,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         weatherInfo.textContent = "Loading weather data...";
         fetchWeather(cityName);
-        fetchCityImage(cityName);
     });
 
     function fetchWeather(cityName) {
@@ -38,24 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
-    function fetchCityImage(cityName) {
-        const teleportUrl = `https://api.teleport.org/api/city:${cityName}/`;
-        fetch(teleportUrl)
-            .then(response => response.json())
-            .then(teleportData => {
-                // Process and display teleportData
-                // Update forecast and cityImage elements
-            })
-            .catch(error => {
-                forecast.textContent = "An error occurred while fetching city data. Please try again.";
-                console.error(error);
-            });
-    }
-
     function kelvinToFahrenheit(kelvin) {
         return (kelvin - 273.15) * 9/5 + 32;
     }
 });
+
 
     
 
