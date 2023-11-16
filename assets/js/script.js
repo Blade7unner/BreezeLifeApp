@@ -1,5 +1,5 @@
 const openWeatherApiKey = 'c82895bdc50b848e2df6533322b114cb'; // Updated with your API key
-
+const teleportApiKey = 'TELEPORT_API_KEY'; // Replace with valid API key if needed
 
 document.addEventListener("DOMContentLoaded", () => {
     const cityInput = document.getElementById("activityInput"); // Assuming this is the city input
