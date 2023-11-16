@@ -56,9 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return kelvin - 273.15;
     }
 });
-
-
-
     
 
 
@@ -75,33 +72,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // Event listener for the search button
-searchButton.addEventListener("click", () => {
-  const cityName = cityInput.value;
-  
-  // Make API request to OpenWeather API
-  const openWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${openWeatherApiKey}`;
-  fetch(openWeatherUrl)
-      .then(response => response.json())
-      .then(weatherData => {
-          // Process and display weatherData
-          // Update weatherInfo and weatherImage elements
-      })
-      .catch(error => console.error(error));
-
-  // Make API request to Teleport API
-  const teleportUrl = `https://api.teleport.org/api/city:${cityName}/`;
-  fetch(teleportUrl, {
-      headers: {
-          'Authorization': `Bearer ${teleportApiKey}`
-      }
-  })
-      .then(response => response.json())
-      .then(teleportData => {
-          // Process and display teleportData
-          // Update forecast and cityImage elements
-      })
-      .catch(error => console.error(error));
-});
-
-});
