@@ -1,16 +1,16 @@
 const openWeatherApiKey = 'c82895bdc50b848e2df6533322b114cb'; // Updated with your API key
-const teleportApiKey = 'TELEPORT_API_KEY'; // Replace with your valid API key if needed
+const teleportApiKey = 'TELEPORT_API_KEY'; // Replace with valid API key if needed
 
 document.addEventListener("DOMContentLoaded", () => {
     const cityInput = document.getElementById("activityInput"); // Assuming this is the city input
     const searchButton = document.getElementById("searchButton");
     const weatherInfo = document.getElementById("weather"); // Display weather information here
-    const activityInfo = document.getElementById("activity"); // Assuming you want to display activity info here
+    const activityInfo = document.getElementById("activity"); // display activity info here
 
     searchButton.addEventListener("click", () => {
         const cityName = cityInput.value.trim();
         if (!cityName) {
-            alert("Please enter a city name."); // Replace with a more sophisticated notification method in actual implementation
+            alert("Please enter a city name."); // notification 
             return;
         }
 
