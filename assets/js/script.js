@@ -1,4 +1,4 @@
-const openWeatherApiKey = 'OPENWEATHER_API_KEY';
+const openWeatherApiKey = '4b9003adf8523264e0d88c73fd217e82';
 const teleportApiKey = 'TELEPORT_API_KEY';
 
 document.addEventListener("DOMContentLoaded", () => {
