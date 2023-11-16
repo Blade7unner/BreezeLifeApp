@@ -25,6 +25,24 @@ document.addEventListener("DOMContentLoaded", () => {
             fetchCityInfo(cityName);
         }
     });
+    
+    // Add the 'submit' event listener to the search form
+    searchButton.addEventListener('submit', function(event) {
+        // Prevent the form from being submitted normally
+        event.preventDefault();
+    
+        // Get the city name from the search input field
+        const cityName = searchInput.value.trim();
+    
+        // Call fetchCityInfo and fetchWeather with the city name
+        if (cityName) {
+            fetchWeather(cityName);
+            fetchCityInfo(cityName);
+            addCityToSearchHistory(cityName);
+        } else {
+            displayMessage("Please enter a city name.");
+        }
+    });
 
     function displayMessage(message) {
         currentWeatherDiv.innerHTML = `<p>${message}</p>`;
@@ -74,6 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
         cityElem.className = "search-history-item";
         searchHistoryDiv.appendChild(cityElem);
     }
+
+
 
     
 });
