@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const cityInput = document.getElementById("activityInput"); // Adjusted to match HTML
     const searchButton = document.getElementById("searchButton");
     const weatherInfo = document.getElementById("weather"); // Adjusted to match HTML
-    const activityInfo = document.getElementById("activity"); // Assuming you want to display activity here
+    const activityInfo = document.getElementById("activity"); // Display activity here
 
     searchButton.addEventListener("click", () => {
         const cityName = cityInput.value.trim();
         if (!cityName) {
-            alert("Please enter a city name."); // Replace with a more sophisticated notification method in actual implementation
+            alert("Please enter a city name."); // notification to input city name
             return;
         }
 
