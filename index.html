@@ -12,21 +12,15 @@
         <div class="grid-x grid-padding-x align-center-middle text-center">
             <div class="cell">
                 <h1> SunnySide Activities </h1>
-                <p>Discover and select your next vacation spot with ease. Vacation Picker presents stunning city visuals along with real-time and future weather forecasts.
-                     Powered by various APIs, we make choosing your dream destination simpler and more informed. Plan less, explore more!</p>
+                <p>Discover and select your next vacation spot with ease. Vacation Picker presents stunning city visuals along with real-time and future weather forecasts. Powered by various APIs, we make choosing your dream destination simpler and more informed. Plan less, explore more!</p>
             </div>
 
             <div class="cell">
-                <h2> Enter Your Desired Activity </h2>
+                <h2>Enter Your Desired Activity or City</h2>
                 <div class="input-group">
-                    <input id="activityInput" class="input-group-field" type="text" placeholder="Activity to search...">
-                </div>
-
-                <h2> Input City for Weather Info </h2>
-                <div class="input-group">
-                    <input id="cityInput" class="input-group-field" type="text" placeholder="City to search...">
+                    <input id="searchInput" class="input-group-field" type="text" placeholder="Activity or City to search...">
                     <div class="input-group-button">
-                        <button id="searchButton" class="button">Submit</button>
+                        <button id="searchButton" class="button">Search</button>
                     </div>
                 </div>
             </div>
@@ -37,16 +31,20 @@
                     <!-- Current Weather Details Here -->
                 </div>
                 <h2>5-Day Forecast</h2>
-                <div id="forecast">
+                <div id="forecast" class="flex-container">
                     <!-- Forecast Details Here -->
                 </div>
                 <h2>Search History</h2>
                 <div id="searchHistory">
                     <!-- Search History Here -->
                 </div>
+            </div>
 
-                <h2>Random Activity and Current Weather</h2>
-                <div id="activity"></div>
+            <div class="cell">
+                <h2>Activity Suggestions</h2>
+                <div id="activitySuggestions" class="flex-container">
+                    <!-- Activity Suggestions Here -->
+                </div>
             </div>
         </div> <!-- Closing div for grid-x -->
     </div> <!-- Closing div for grid-container -->
@@ -56,4 +54,5 @@
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
+
 
