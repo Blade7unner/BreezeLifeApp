@@ -1,4 +1,4 @@
-const openWeatherApiKey = '4b9003adf8523264e0d88c73fd217e82';
+const openWeatherApiKey = 'O4b9003adf8523264e0d88c73fd217e82';
 const teleportApiKey = 'TELEPORT_API_KEY';
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!weatherData || !weatherData.main || !weatherData.main.temp) {
                     throw new Error("Invalid weather data format");
                 }
-                const temperatureCelsius = kelvinToCelsius(weatherData.main.temp);
-                weatherInfo.textContent = `Temperature: ${temperatureCelsius.toFixed(2)} °C`;
+                const temperatureFahrenheit = kelvinToFahrenheit(weatherData.main.temp);
+                weatherInfo.textContent = `Temperature: ${temperatureFahrenheit.toFixed(2)} °F`;
                 // Additional weather info updates...
             })
             .catch(error => {
@@ -52,10 +52,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
-    function kelvinToCelsius(kelvin) {
-        return kelvin - 273.15;
+    function kelvinToFahrenheit(kelvin) {
+        return (kelvin - 273.15) * 9/5 + 32;
     }
 });
+
     
 
 
