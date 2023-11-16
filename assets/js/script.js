@@ -38,6 +38,27 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
+    function fetchCityImage(cityName) {
+        const teleportUrl = `https://api.teleport.org/api/city:${cityName}/`;
+        fetch(teleportUrl)
+            .then(response => response.json())
+            .then(teleportData => {
+                // Process and display teleportData
+                // Update forecast and cityImage elements
+            })
+            .catch(error => {
+                forecast.textContent = "An error occurred while fetching city data. Please try again.";
+                console.error(error);
+            });
+    }
+
+    function kelvinToCelsius(kelvin) {
+        return kelvin - 273.15;
+    }
+});
+
+
+
     
 
 
