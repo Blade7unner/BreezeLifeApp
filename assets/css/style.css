@@ -2,7 +2,6 @@
 
 /* General Styling */
 
-
 /* Header Styling */
 .header-image {
     background: url('./assets/images/banner.jpg') no-repeat center center/cover;
@@ -14,13 +13,13 @@
     justify-content: center;
     color: white;
     text-shadow: 1px 1px 2px black;
-    /* Modern rounded corners */
 }
 
 .header-content {
     text-align: center;
     padding: 15px;
 }
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #E3F2FD; /* Light blue background */
@@ -29,6 +28,7 @@ body {
     margin: 0;
     padding: 0;
 }
+
 /* Grid Container */
 .grid-container {
     max-width: 1000px;
@@ -67,20 +67,36 @@ body {
     background-color: #42a5f5; /* Button hover state */
 }
 
-/* Weather Section */
-.weather-section {
+/* Weather Section, Climate Info Section, Life Quality Section */
+.weather-section, .climate-info-section, .life-quality-section {
     background: #fff;
     padding: 15px;
     border-radius: 20px; /* Rounded corners for sections */
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
 
-/* Activity Section */
-.activity-section {
-    background: #fff3e0;
-    padding: 15px;
-    border-radius: 20px; /* Rounded corners for sections */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+/* Forecast Section */
+.forecast-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 10px;
+}
+
+.forecast-day {
+    flex: 1 1 18%; /* Adjust the flex-basis as per your design preference */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.forecast-day img {
+    width: 50px; /* Adjust size as needed */
+    height: auto;
 }
 
 /* Responsive Design */
@@ -93,7 +109,14 @@ body {
     .button {
         width: 100%;
     }
+
+    .forecast-day {
+        flex-basis: 45%; /* Adjust for smaller screens */
+    }
 }
+
+
+
 
 
 
