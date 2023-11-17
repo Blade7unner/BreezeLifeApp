@@ -3,7 +3,7 @@
 /* General Styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #E3F2FD; /* Light blue background */
+    background-color: #dbeefc; /* Light blue background */
     color: #333;
     line-height: 1.6;
     margin: 0;
@@ -95,7 +95,7 @@ body {
     padding: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    background-color: #90caf9;
+    background-color: #dbeefc;
 }
 
 .forecast-day img {
