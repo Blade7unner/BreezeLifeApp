@@ -1,4 +1,4 @@
-# Vacation Picker
+# Breeze-Life App
 
 ## Application Overview
 
