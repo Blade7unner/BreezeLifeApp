@@ -44,8 +44,8 @@ Contributions to Breeze Life are welcome. Please refer to the [Contributing Guid
 
 ## Tests
 
-Describe any tests that we have for the application and how to run them.
+Tests that we have for the application and how to run them.
 
 ## Questions
 
-For any questions or comments, please contact [Your Email Address].
+For any questions or comments, please contact [Email Address].
