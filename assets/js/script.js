@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");
     const searchButton = document.getElementById("searchButton");
     const currentWeatherDiv = document.getElementById("currentWeather");
-    const cityInfoDiv = document.getElementById("cityInfo");
+    const cityInfoDiv = document.getElementById("cityInfo"); // Ensure this ID matches an element in the HTML
     const climateInfoDiv = document.getElementById("climateInfo");
     const forecastDiv = document.getElementById("forecast");
     const lifeQualityDiv = document.getElementById("lifeQualityInfo");
@@ -62,7 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(teleportApiUrl)
             .then(response => response.json())
             .then(data => {
-                displayCityInfo(data, cityName);
+                if (cityInfoDiv) { // Check if cityInfoDiv is not null before setting innerHTML
+                    displayCityInfo(data, cityName);
+                }
             })
             .catch(error => {
                 console.error("Error fetching city info:", error);
