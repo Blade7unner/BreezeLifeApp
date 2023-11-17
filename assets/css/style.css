@@ -3,7 +3,7 @@
 /* General Styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #dbeefc; /* Light blue background */
+    background-color: #fefeff; /* White background to blend with the head banner */
     color: #333;
     line-height: 1.6;
     margin: 0;
@@ -28,7 +28,11 @@ body {
 
 .header-content {
     text-align: center;
-    padding: 15px;
+    padding: 5px;
+    font-size: 1.5em; /* Larger font size */
+    font-weight: bold; /* Make the text bold */
+    color: #333; /* Adjust the color if needed */
+    margin: 10px 0; /* Adjust spacing around the text */
 }
 
 /* Grid Container */
