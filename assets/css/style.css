@@ -24,6 +24,7 @@ body {
     justify-content: center;
     color: white;
     text-shadow: 1px 1px 2px black;
+    font-weight: bold; /* Make the text bold */
 }
 
 .header-content {
@@ -63,13 +64,14 @@ body {
 }
 
 .button {
-    background-color: #64b5f6;
+    background-color: #197aca;
     border: none;
     border-radius: 20px;
     padding: 10px 15px;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-weight: bold; /* Make the text bold */
 }
 
 .button:hover {
@@ -78,11 +80,12 @@ body {
 
 /* Section Styles */
 .weather-section, .climate-info-section, .life-quality-section, .forecast-container {
-    background: #90caf9;
+    background: #197aca;
     padding: 15px;
     border-radius: 20px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
     width: 100%; /* Full width of the container */
+    font-weight: bold; /* Make the text bold */
 }
 
 .forecast-container {
@@ -90,6 +93,7 @@ body {
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 10px;
+    
 }
 
 .forecast-day {
@@ -100,11 +104,13 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     background-color: #dbeefc;
+    font-weight: bold; /* Make the text bold */
 }
 
 .forecast-day img {
     width: 50px;
     height: auto;
+    
 }
 
 /* Search History Section */
@@ -114,7 +120,8 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    background-color: #90caf9; /* Blue background for results */
+    background-color: #197aca; /* Blue background for results */
+    font-weight: bold; /* Make the text bold */
     padding: 15px;
     border-radius: 20px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
@@ -126,6 +133,7 @@ body {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    
 }
 
 /* Responsive Design */
