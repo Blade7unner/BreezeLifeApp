@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchButton = document.getElementById("searchButton");
     const currentWeatherDiv = document.getElementById("currentWeather");
     const cityInfoDiv = document.getElementById("cityInfo");
+    const climateInfoDiv = document.getElementById("climateInfo");
+    const forecastDiv = document.getElementById("forecast");
+    const lifeQualityDiv = document.getElementById("lifeQualityInfo");
     const searchHistoryDiv = document.getElementById("searchHistory");
 
     searchButton.addEventListener("click", () => {
@@ -12,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (cityName) {
             fetchWeather(cityName);
             fetchCityInfo(cityName);
+            fetchFiveDayForecast(cityName);
+            fetchLifeQualityData(cityName);
             addCityToSearchHistory(cityName);
         } else {
             displayMessage("Please enter a city name.");
@@ -23,24 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const cityName = event.target.textContent;
             fetchWeather(cityName);
             fetchCityInfo(cityName);
-        }
-    });
-    
-    // Add the 'submit' event listener to the search form
-    searchButton.addEventListener('submit', function(event) {
-        // Prevent the form from being submitted normally
-        event.preventDefault();
-    
-        // Get the city name from the search input field
-        const cityName = searchInput.value.trim();
-    
-        // Call fetchCityInfo and fetchWeather with the city name
-        if (cityName) {
-            fetchWeather(cityName);
-            fetchCityInfo(cityName);
-            addCityToSearchHistory(cityName);
-        } else {
-            displayMessage("Please enter a city name.");
+            fetchFiveDayForecast(cityName);
+            fetchLifeQualityData(cityName);
         }
     });
 
@@ -86,17 +75,63 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add more details from the data as required
     }
 
+    function fetchFiveDayForecast(cityName) {
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${openWeatherApiKey}&units=imperial`;
+        fetch(forecastUrl)
+            .then(response => response.json())
+            .then(data => {
+                displayFiveDayForecast(data);
+            })
+            .catch(error => console.error("Error fetching 5-day forecast:", error));
+    }
+
+    function displayFiveDayForecast(data) {
+        forecastDiv.innerHTML = ""; // Clear previous forecasts
+
+        for (let i = 0; i < data.list.length; i += 8) {
+            const dayData = data.list[i];
+            const dayDiv = document.createElement("div");
+            dayDiv.className = "forecast-day";
+            dayDiv.innerHTML = `
+                <h4>${new Date(dayData.dt * 1000).toLocaleDateString()}</h4>
+                <img src="http://openweathermap.org/img/wn/${dayData.weather[0].icon}.png" alt="Weather icon">
+                <p>Temp: ${dayData.main.temp} °F</p>
+                <p>${dayData.weather[0].description}</p>
+            `;
+            forecastDiv.appendChild(dayDiv);
+        }
+    }
+
+    function fetchLifeQualityData(cityName) {
+        const citySlug = cityName.toLowerCase().replace(/ /g, '-');
+        const apiUrl = `https://api.teleport.org/api/urban_areas/slug:${citySlug}/scores/`;
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                displayLifeQualityData(data, cityName);
+            })
+            .catch(error => {
+                console.error("Error fetching life quality data:", error);
+                displayMessage(`Life quality data not available for ${cityName}.`);
+            });
+    }
+
+    function displayLifeQualityData(data, cityName) {
+        lifeQualityDiv.innerHTML = `<h3>Life Quality in ${cityName}</h3>`;
+        lifeQualityDiv.innerHTML += `<p>${data.summary}</p>`;
+        // Add more details from the data as required
+    }
+
     function addCityToSearchHistory(cityName) {
         const cityElem = document.createElement("div");
         cityElem.textContent = cityName;
         cityElem.className = "search-history-item";
         searchHistoryDiv.appendChild(cityElem);
     }
-
-
-
-    
 });
+
+
+
 
 
 
