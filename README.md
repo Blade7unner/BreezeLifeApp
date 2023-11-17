@@ -36,7 +36,7 @@ To use Breeze Life:
 
 ## Credits
 
-Developed by [Felipe Benoit, Todd Fowler, Troy Mena]
+Developed by [ Felipe Benoit, Todd Fowler, Troy Mena ]
 
 ## Contributing
 
