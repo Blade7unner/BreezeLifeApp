@@ -1,37 +1,51 @@
-# Breeze-Life App
+# Breeze Life
 
-## Application Overview
-
-Vacation Picker is an app that takes the stress out of traveling by providing users with pictures of cities and their current as well as future weather information. It integrates with various APIs to offer this valuable information to travelers, making it easier for them to choose their vacation destination.
-
-## APIs Used
-
-- [OpenWeather Current Weather Data](https://openweathermap.org/current) - Provides current weather data for cities.
-- [OpenWeather 5 Day / 3 Hour Forecast](https://openweathermap.org/forecast5) - Offers a 5-day, 3-hour interval weather forecast for cities.
-- [Teleport Public APIs](https://developers.teleport.org/) - Used for fetching city images and additional data.
+Breeze Life focuses on making life as easy as a breeze, providing up-to-date weather and quality of life data.
 
 ## Description
 
-The Vacation Picker application allows users to search for a city of their choice and provides the following information:
+Breeze Life is a web application designed to offer users comprehensive weather information and quality of life indicators for various cities. It allows users to search for a city and view current weather conditions, a five-day forecast, and quality of life metrics.
 
-- A beautiful image of the selected city, giving users a glimpse of what to expect.
-- The current weather conditions in the city, including temperature, humidity, and other relevant data.
-- A 5-day forecast, which helps travelers plan their trips more effectively by considering the future weather conditions.
+## Table of Contents
 
-## User Story
+- [Installation](#installation)
+- [Usage](#usage)
+- [APIs Used](#apis-used)
+- [Credits](#credits)
+- [Tests](#tests)
+- [Questions](#questions)
 
-As a traveler, I want to use Vacation Picker to:
+## Installation
 
-- View images of different cities to get an idea of their visual appeal.
-- Access current weather information to make sure the climate aligns with my preferences.
-- Check the 5-day weather forecast to plan my trip effectively without stress.
+To set up Breeze Life locally:
+1. Clone the repository to your local machine.
+2. Ensure you have [Node.js](https://nodejs.org/) installed.
+3. Install necessary dependencies by running `npm install`.
 
-## Getting Started
+## Usage 
 
-To get started with Vacation Picker, follow these steps:
+To use Breeze Life:
+1. Open `index.html` in your web browser.
+2. Enter the name of a city in the search field.
+3. View current weather, upcoming forecast, and quality of life data.
 
-1. Clone the repository to your local machine:
+## APIs Used
 
-```bash
-$ git clone https://github.com/yourusername/vacation-picker.git
+- [OpenWeatherMap API](https://openweathermap.org/api): Used for fetching current weather and forecast data.
+- [Teleport API](https://developers.teleport.org/): Used for obtaining quality of life data for different cities.
 
+## Credits
+
+Developed by [Felipe Benoit, Todd Fowler, Troy Mena]
+
+## Contributing
+
+Contributions to Breeze Life are welcome. Please refer to the [Contributing Guidelines](CONTRIBUTING.md) for more information.
+
+## Tests
+
+Describe any tests that we have for the application and how to run them.
+
+## Questions
+
+For any questions or comments, please contact [Your Email Address].
