@@ -13,6 +13,10 @@ body {
     align-items: center;
 }
 
+
+.white{
+    color: white;
+}
 /* Header Styling */
 .header-image {
     background: url('./assets/images/banner.jpg') no-repeat center center/cover;
