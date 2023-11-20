@@ -1,10 +1,9 @@
-const openWeatherApiKey = 'c82895bdc50b848e2df6533322b114cb'; // API key
+const openWeatherApiKey = 'c82895bdc50b848e2df6533322b114cb'; // Replace with your OpenWeather API key
 
 document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");
     const searchButton = document.getElementById("searchButton");
     const currentWeatherDiv = document.getElementById("currentWeather");
-    const cityInfoDiv = document.getElementById("cityInfo"); // Ensure this ID matches an element in the HTML
     const climateInfoDiv = document.getElementById("climateInfo");
     const forecastDiv = document.getElementById("forecast");
     const lifeQualityDiv = document.getElementById("lifeQualityInfo");
@@ -12,12 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     searchButton.addEventListener("click", () => {
         let cityName = searchInput.value.trim();
-    
-        // Capitalize the search input
-        let words = cityName.split(' ');
-        let capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
-        cityName = capitalizedWords.join(' ');
-    
+        cityName = capitalizeCityName(cityName);
         if (cityName) {
             fetchWeather(cityName);
             fetchCityInfo(cityName);
@@ -28,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             displayMessage("Please enter a city name.");
         }
     });
+
     searchHistoryDiv.addEventListener("click", (event) => {
         if (event.target.className.includes('search-history-item')) {
             const cityName = event.target.textContent;
@@ -38,6 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    function capitalizeCityName(cityName) {
+        return cityName.split(' ')
+                      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                      .join(' ');
+    }
+
     function displayMessage(message) {
         currentWeatherDiv.innerHTML = `<p>${message}</p>`;
     }
@@ -46,9 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${openWeatherApiKey}&units=imperial`;
         fetch(weatherUrl)
             .then(response => response.json())
-            .then(data => {
-                displayCurrentWeather(data);
-            })
+            .then(data => displayCurrentWeather(data))
             .catch(error => console.error("Error fetching current weather:", error));
     }
 
@@ -67,66 +66,80 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(teleportApiUrl)
             .then(response => response.json())
             .then(data => {
-                if (cityInfoDiv) { // Check if cityInfoDiv is not null before setting innerHTML
-                    displayCityInfo(data, cityName);
-                }
+                displayCityInfo(data, cityName);
+                fetchClimateInfo(cityName); // Fetching additional climate information
             })
-            .catch(error => {
-                console.error("Error fetching city info:", error);
-                displayMessage("City information not available.");
-            });
+            .catch(error => console.error("Error fetching city info:", error));
     }
 
     function displayCityInfo(data, cityName) {
-        cityInfoDiv.innerHTML = `<h3>Quality of Life in ${cityName}</h3>`;
-        // Add more details from the data as required
+        // Use climateInfoDiv to display the city information
+        if (climateInfoDiv) {
+            climateInfoDiv.innerHTML += `<h3>Quality of Life in ${cityName}</h3>`;
+            // Add more details from the data as required
+            // Example: climateInfoDiv.innerHTML += `<p>Score: ${data.teleport_city_score}</p>`;
+        } else {
+            console.error("Element with ID 'climateInfo' not found");
+        }
+    }
+    
+
+    function fetchClimateInfo(cityName) {
+        const citySlug = cityName.toLowerCase().replace(/ /g, '-');
+        const climateApiUrl = `https://api.teleport.org/api/urban_areas/slug:${citySlug}/details/`;
+        fetch(climateApiUrl)
+            .then(response => response.json())
+            .then(data => displayClimateInfo(data, cityName))
+            .catch(error => console.error("Error fetching climate info:", error));
+    }
+
+    function displayClimateInfo(data, cityName) {
+        console.log("Climate data received:", data); // Debugging line
+        if (climateInfoDiv) {
+            climateInfoDiv.innerHTML = `<h3>Climate Information for ${cityName}</h3>`;
+            // Extract and display relevant climate information from the data
+            // Example: climateInfoDiv.innerHTML += `<p>Average Temperature: ${data.categories[0].data[0].float_value} °C</p>`;
+        }
     }
 
     function fetchFiveDayForecast(cityName) {
         const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${openWeatherApiKey}&units=imperial`;
         fetch(forecastUrl)
             .then(response => response.json())
-            .then(data => {
-                displayFiveDayForecast(data);
-            })
+            .then(data => displayFiveDayForecast(data))
             .catch(error => console.error("Error fetching 5-day forecast:", error));
     }
 
     function displayFiveDayForecast(data) {
-        forecastDiv.innerHTML = ""; // Clear previous forecasts
-    
+        forecastDiv.innerHTML = "";
         for (let i = 0; i < data.list.length; i += 8) {
             const dayData = data.list[i];
             const dayDiv = document.createElement("div");
             dayDiv.className = "forecast-day";
-    
-            // Capitalize the weather description
-            const description = dayData.weather[0].description;
-            const words = description.split(' ');
-            const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
-            const capitalizedDescription = capitalizedWords.join(' ');
-    
+            const description = capitalizeWeatherDescription(dayData.weather[0].description);
             dayDiv.innerHTML = `
                 <h4>${new Date(dayData.dt * 1000).toLocaleDateString()}</h4>
                 <img src="http://openweathermap.org/img/wn/${dayData.weather[0].icon}.png" alt="Weather icon">
                 <p>Temp: ${dayData.main.temp} °F</p>
-                <p>${capitalizedDescription}</p>
+                <p>${description}</p>
             `;
             forecastDiv.appendChild(dayDiv);
         }
     }
+
+    function capitalizeWeatherDescription(description) {
+        return description.split(' ')
+                         .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                         .join(' ');
+    }
+
     function fetchLifeQualityData(cityName) {
         const citySlug = cityName.toLowerCase().replace(/ /g, '-');
         const apiUrl = `https://api.teleport.org/api/urban_areas/slug:${citySlug}/scores/`;
         fetch(apiUrl)
             .then(response => response.json())
-            .then(data => {
-                displayLifeQualityData(data, cityName);
-            })
-            .catch(error => {
-                console.error("Error fetching life quality data:", error);
-                displayMessage(`Life quality data not available for ${cityName}.`);
-            });
+            .then(data => displayLifeQualityData(data, cityName))
+            .catch(error => console.error("Error fetching life quality data:", error));
     }
 
     function displayLifeQualityData(data, cityName) {
@@ -142,6 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchHistoryDiv.appendChild(cityElem);
     }
 });
+
 
 
 
