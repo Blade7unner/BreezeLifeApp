@@ -11,7 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchHistoryDiv = document.getElementById("searchHistory");
 
     searchButton.addEventListener("click", () => {
-        const cityName = searchInput.value.trim();
+        let cityName = searchInput.value.trim();
+    
+        // Capitalize the search input
+        let words = cityName.split(' ');
+        let capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
+        cityName = capitalizedWords.join(' ');
+    
         if (cityName) {
             fetchWeather(cityName);
             fetchCityInfo(cityName);
@@ -22,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
             displayMessage("Please enter a city name.");
         }
     });
-
     searchHistoryDiv.addEventListener("click", (event) => {
         if (event.target.className.includes('search-history-item')) {
             const cityName = event.target.textContent;
@@ -89,21 +94,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function displayFiveDayForecast(data) {
         forecastDiv.innerHTML = ""; // Clear previous forecasts
-
+    
         for (let i = 0; i < data.list.length; i += 8) {
             const dayData = data.list[i];
             const dayDiv = document.createElement("div");
             dayDiv.className = "forecast-day";
+    
+            // Capitalize the weather description
+            const description = dayData.weather[0].description;
+            const words = description.split(' ');
+            const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
+            const capitalizedDescription = capitalizedWords.join(' ');
+    
             dayDiv.innerHTML = `
                 <h4>${new Date(dayData.dt * 1000).toLocaleDateString()}</h4>
                 <img src="http://openweathermap.org/img/wn/${dayData.weather[0].icon}.png" alt="Weather icon">
                 <p>Temp: ${dayData.main.temp} °F</p>
-                <p>${dayData.weather[0].description}</p>
+                <p>${capitalizedDescription}</p>
             `;
             forecastDiv.appendChild(dayDiv);
         }
     }
-
     function fetchLifeQualityData(cityName) {
         const citySlug = cityName.toLowerCase().replace(/ /g, '-');
         const apiUrl = `https://api.teleport.org/api/urban_areas/slug:${citySlug}/scores/`;
