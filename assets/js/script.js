@@ -25,7 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
             fetchCityInfo(cityName);
             fetchFiveDayForecast(cityName);
             fetchLifeQualityData(cityName);
+            fetchClimateInfo(cityName);
             addCityToSearchHistory(cityName);
+            updateClimateWidget(cityName); // Add this line
         } else {
             displayMessage("Please enter a city name.");
         }
@@ -74,13 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.error("Error fetching city info:", error));
     }
 
-    function displayCityInfo(data, cityName) {
-        if (climateInfoDiv) {
-            climateInfoDiv.innerHTML += `<h3>Quality of Life in ${cityName}</h3>`;
-        } else {
-            console.error("Element with ID 'climateInfo' not found");
-        }
-    }
 
     function fetchClimateInfo(cityName) {
         const citySlug = cityName.toLowerCase().replace(/ /g, '-');
@@ -91,11 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(error => console.error("Error fetching climate info:", error));
     }
 
-    function displayClimateInfo(data, cityName) {
-        if (climateInfoDiv) {
-            climateInfoDiv.innerHTML = `<h3>Climate Information for ${cityName}</h3>`;
-        }
-    }
+
 
     function fetchFiveDayForecast(cityName) {
         const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${openWeatherApiKey}&units=imperial`;
@@ -145,21 +136,16 @@ document.addEventListener("DOMContentLoaded", () => {
         lifeQualityDiv.innerHTML += `<p>${data.summary}</p>`;
     }
 
-    function addTeleportWidget(cityName) {
-        const widgetDiv = document.createElement('div');
-        widgetDiv.id = 'teleport-widget';
-        lifeQualityDiv.appendChild(widgetDiv);
-
-        const widgetScript = document.createElement('script');
-        widgetScript.type = 'text/javascript';
-        widgetScript.async = true;
-        widgetScript.src = 'https://actual-teleport-widget-url.js'; // Replace with the actual URL
-        widgetScript.onload = function() {
-            // Initialize the widget here if needed
-        };
-        document.head.appendChild(widgetScript);
+    function updateClimateWidget(cityName) {
+        const citySlug = cityName.toLowerCase().replace(/ /g, '-');
+        const climateWidgetScript = document.getElementById('climateWidgetScript');
+    
+        climateWidgetScript.setAttribute('data-url', `https://teleport.org/cities/${citySlug}/widget/weather/?currency=USD`);
+    
+        // Remove and re-add the script tag to force it to reload
+        climateWidgetScript.parentNode.removeChild(climateWidgetScript);
+        document.body.appendChild(climateWidgetScript);
     }
-
     function addCityToSearchHistory(cityName) {
         const cityElem = document.createElement("div");
         cityElem.textContent = cityName;
