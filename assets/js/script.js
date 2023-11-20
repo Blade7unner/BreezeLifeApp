@@ -9,7 +9,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const lifeQualityDiv = document.getElementById("lifeQualityInfo");
     const searchHistoryDiv = document.getElementById("searchHistory");
 
-    searchButton.addEventListener("click", () => {
+    searchButton.addEventListener("click", performSearch);
+
+    searchInput.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+            performSearch();
+        }
+    });
+
+    function performSearch() {
         let cityName = searchInput.value.trim();
         cityName = capitalizeCityName(cityName);
         if (cityName) {
@@ -21,17 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             displayMessage("Please enter a city name.");
         }
-    });
-
-    searchHistoryDiv.addEventListener("click", (event) => {
-        if (event.target.className.includes('search-history-item')) {
-            const cityName = event.target.textContent;
-            fetchWeather(cityName);
-            fetchCityInfo(cityName);
-            fetchFiveDayForecast(cityName);
-            fetchLifeQualityData(cityName);
-        }
-    });
+    }
 
     function capitalizeCityName(cityName) {
         return cityName.split(' ')
@@ -137,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(data => {
                 displayLifeQualityData(data, cityName);
-                addTeleportWidget(cityName); // Add Teleport widget
+                addTeleportWidget(cityName);
             })
             .catch(error => console.error("Error fetching life quality data:", error));
     }
@@ -155,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const widgetScript = document.createElement('script');
         widgetScript.type = 'text/javascript';
         widgetScript.async = true;
-        widgetScript.src = 'https://actual-teleport-widget-url.js'; // URL of the Teleport widget script
+        widgetScript.src = 'https://actual-teleport-widget-url.js';
         widgetScript.onload = function() {
             // Initialize the widget here if needed
         };
@@ -169,6 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchHistoryDiv.appendChild(cityElem);
     }
 });
+
 
 
 
