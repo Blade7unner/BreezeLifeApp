@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(data => {
                 displayLifeQualityData(data, cityName);
-                addTeleportWidget(cityName);
+                addTeleportWidget(cityName); // Add Teleport widget
             })
             .catch(error => console.error("Error fetching life quality data:", error));
     }
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const widgetScript = document.createElement('script');
         widgetScript.type = 'text/javascript';
         widgetScript.async = true;
-        widgetScript.src = 'https://actual-teleport-widget-url.js';
+        widgetScript.src = 'https://actual-teleport-widget-url.js'; // Replace with the actual URL
         widgetScript.onload = function() {
             // Initialize the widget here if needed
         };
@@ -168,4 +168,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
 
