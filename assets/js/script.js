@@ -142,8 +142,3 @@ document.addEventListener("DOMContentLoaded", () => {
         searchHistoryDiv.appendChild(cityElem);
     }
 });
-
-
-
-
-
