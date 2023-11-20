@@ -1,4 +1,8 @@
+
+const openWeatherApiKey = 'c82895bdc50b848e2df6533322b114cb'; // API key
+=======
 const openWeatherApiKey = 'c82895bdc50b848e2df6533322b114cb'; // Replace with your OpenWeather API key
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");
@@ -9,7 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const lifeQualityDiv = document.getElementById("lifeQualityInfo");
     const searchHistoryDiv = document.getElementById("searchHistory");
 
-    searchButton.addEventListener("click", () => {
+    searchInput.addEventListener("keypress", function(event) {
+        if (event.key == "Enter") {
+            submitForm()
+        }
+    })
+    function submitForm() {
         let cityName = searchInput.value.trim();
         cityName = capitalizeCityName(cityName);
         if (cityName) {
@@ -21,7 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             displayMessage("Please enter a city name.");
         }
+
+    }
+    searchButton.addEventListener("click", submitForm );
+=======
     });
+
 
     searchHistoryDiv.addEventListener("click", (event) => {
         if (event.target.className.includes('search-history-item')) {
