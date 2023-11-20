@@ -1,8 +1,4 @@
-
-const openWeatherApiKey = 'c82895bdc50b848e2df6533322b114cb'; // API key
-=======
 const openWeatherApiKey = 'c82895bdc50b848e2df6533322b114cb'; // Replace with your OpenWeather API key
-
 
 document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("searchInput");
@@ -13,12 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const lifeQualityDiv = document.getElementById("lifeQualityInfo");
     const searchHistoryDiv = document.getElementById("searchHistory");
 
-    searchInput.addEventListener("keypress", function(event) {
-        if (event.key == "Enter") {
-            submitForm()
-        }
-    })
-    function submitForm() {
+    searchButton.addEventListener("click", () => {
         let cityName = searchInput.value.trim();
         cityName = capitalizeCityName(cityName);
         if (cityName) {
@@ -30,12 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             displayMessage("Please enter a city name.");
         }
-
-    }
-    searchButton.addEventListener("click", submitForm );
-=======
     });
-
 
     searchHistoryDiv.addEventListener("click", (event) => {
         if (event.target.className.includes('search-history-item')) {
@@ -66,9 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function displayCurrentWeather(data) {
+        const iconCode = data.weather[0].icon;
+        const iconUrl = `http://openweathermap.org/img/wn/${iconCode}.png`;
+    
         currentWeatherDiv.innerHTML = `
             <p>City: ${data.name}</p>
             <p>Date: ${new Date(data.dt * 1000).toLocaleDateString()}</p>
+            <img src="${iconUrl}" alt="Weather icon" />
             <p>Temperature: ${data.main.temp} °F</p>
             <p>Humidity: ${data.main.humidity}%</p>
             <p>Wind Speed: ${data.wind.speed} mph</p>
@@ -81,22 +71,18 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(data => {
                 displayCityInfo(data, cityName);
-                fetchClimateInfo(cityName); // Fetching additional climate information
+                fetchClimateInfo(cityName); 
             })
             .catch(error => console.error("Error fetching city info:", error));
     }
 
     function displayCityInfo(data, cityName) {
-        // Use climateInfoDiv to display the city information
         if (climateInfoDiv) {
             climateInfoDiv.innerHTML += `<h3>Quality of Life in ${cityName}</h3>`;
-            // Add more details from the data as required
-            // Example: climateInfoDiv.innerHTML += `<p>Score: ${data.teleport_city_score}</p>`;
         } else {
             console.error("Element with ID 'climateInfo' not found");
         }
     }
-    
 
     function fetchClimateInfo(cityName) {
         const citySlug = cityName.toLowerCase().replace(/ /g, '-');
@@ -108,11 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function displayClimateInfo(data, cityName) {
-        console.log("Climate data received:", data); // Debugging line
         if (climateInfoDiv) {
             climateInfoDiv.innerHTML = `<h3>Climate Information for ${cityName}</h3>`;
-            // Extract and display relevant climate information from the data
-            // Example: climateInfoDiv.innerHTML += `<p>Average Temperature: ${data.categories[0].data[0].float_value} °C</p>`;
         }
     }
 
@@ -152,14 +135,31 @@ document.addEventListener("DOMContentLoaded", () => {
         const apiUrl = `https://api.teleport.org/api/urban_areas/slug:${citySlug}/scores/`;
         fetch(apiUrl)
             .then(response => response.json())
-            .then(data => displayLifeQualityData(data, cityName))
+            .then(data => {
+                displayLifeQualityData(data, cityName);
+                addTeleportWidget(cityName); // Add Teleport widget
+            })
             .catch(error => console.error("Error fetching life quality data:", error));
     }
 
     function displayLifeQualityData(data, cityName) {
         lifeQualityDiv.innerHTML = `<h3>Life Quality in ${cityName}</h3>`;
         lifeQualityDiv.innerHTML += `<p>${data.summary}</p>`;
-        // Add more details from the data as required
+    }
+
+    function addTeleportWidget(cityName) {
+        const widgetDiv = document.createElement('div');
+        widgetDiv.id = 'teleport-widget';
+        lifeQualityDiv.appendChild(widgetDiv);
+
+        const widgetScript = document.createElement('script');
+        widgetScript.type = 'text/javascript';
+        widgetScript.async = true;
+        widgetScript.src = 'https://actual-teleport-widget-url.js'; // URL of the Teleport widget script
+        widgetScript.onload = function() {
+            // Initialize the widget here if needed
+        };
+        document.head.appendChild(widgetScript);
     }
 
     function addCityToSearchHistory(cityName) {
@@ -169,6 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         searchHistoryDiv.appendChild(cityElem);
     }
 });
+
 
 
 
