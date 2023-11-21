@@ -136,22 +136,21 @@ document.addEventListener("DOMContentLoaded", () => {
         lifeQualityDiv.innerHTML += `<p>${data.summary}</p>`;
     }
 
-    function updateClimateWidget(cityName) {
-        const citySlug = cityName.toLowerCase().replace(/ /g, '-');
-        const climateWidgetScript = document.getElementById('climateWidgetScript');
-    
-        climateWidgetScript.setAttribute('data-url', `https://teleport.org/cities/${citySlug}/widget/weather/?currency=USD`);
-    
-        // Remove and re-add the script tag to force it to reload
-        climateWidgetScript.parentNode.removeChild(climateWidgetScript);
-        document.body.appendChild(climateWidgetScript);
-    }
+
     function addCityToSearchHistory(cityName) {
         const cityElem = document.createElement("div");
         cityElem.textContent = cityName;
         cityElem.className = "search-history-item";
+        
+        // Add an event listener to the city element
+        cityElem.addEventListener('click', function() {
+            searchInput.value = cityName; // Set the search input value to the city name
+            performSearch(); // Perform a search
+        });
+    
         searchHistoryDiv.appendChild(cityElem);
     }
+
 
 });
 
