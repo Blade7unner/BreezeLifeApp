@@ -38,14 +38,12 @@ To use Breeze Life:
 
 Developed by [ Felipe Benoit, Todd Fowler, Troy Mena ]
 
+[Screenshot 1](./assets/images/Screenshot.jpg)
+
 ## Contributing
 
 Contributions to Breeze Life are welcome. Please refer to the [Contributing Guidelines](CONTRIBUTING.md) for more information.
 
-## Tests
-
-Tests that we have for the application and how to run them.
-
 ## Questions
 
-For any questions or comments, please contact [Email Address].
+For any questions or comments, please contact https://github.com/Blade7unner 
